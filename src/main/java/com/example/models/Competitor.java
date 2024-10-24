@@ -3,52 +3,85 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.example.models;
+
+import java.io.Serializable;
+import java.util.Set;
+import static javax.persistence.CascadeType.ALL;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author Mauricio
  */
-public class Competitor{
-     
-    
-    private String name;
-    
-    private String surname;
-    
-    private int age;
-    
-    private String telephone;
-    
-    private String cellphone;
-    
-    private String address;
-    
-    private String city;
-    
-    private String country;
-    
-    private boolean winner;
+@Entity
+public class Competitor implements Serializable {
 
-    
-    public Competitor(){
-        
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String name;
+    private String surname;
+    private int age;
+    private String telephone;
+    private String cellphone;
+    private String address;
+    private String city;
+    private String country;
+    private boolean winner;
+    private String email;
+    private String password;
+
+    @OneToMany(cascade = ALL, mappedBy = "competitor")
+    private Set<Producto> products;
+
+    public Competitor() {}
+
+    public Competitor(String name, String surname, int age, String telephone, String cellphone, String address, String city, String country, boolean winner, String email, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.telephone = telephone;
+        this.cellphone = cellphone;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.winner = winner;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
-    public Competitor(String nameN, String surnameN, int ageN,String telephoneN, String cellphoneN, String addressN, String  cityN, String countryN,boolean winnerN){
-        name=nameN;
-        surname=surnameN;
-        age=ageN;
-        telephone=telephoneN;
-        cellphone=cellphoneN;
-        address=addressN;
-        city=cityN;
-        country=countryN;
-        winner=winnerN;
+    public Long getId() {
+        return id;
     }
-    
-   
+
+    public Set<Producto> getProducts() {
+        return products;
+    }
+
     public String getName() {
         return name;
     }
@@ -120,5 +153,5 @@ public class Competitor{
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
-    
+
 }
